@@ -1,0 +1,62 @@
+services:
+#------------------------------------------------------------
+# 
+  app:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: laravel-api
+    ports:
+      - "8000:80"
+    volumes:
+      - ./api:/var/www/html
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=library
+      - DB_USERNAME=root
+      - DB_PASSWORD=secret
+    networks:
+      library-network:
+        aliases:
+          - api.local
+    entrypoint: /var/www/html/docker/entrypoint.sh
+    # healthcheck:
+    #     test: ["CMD", "curl", "-f", "http://localhost/api/health"]
+    #     interval: 30s
+    #     timeout: 10s
+    #     retries: 3
+
+
+#------------------------------------------------------------
+# 
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    volumes:
+      - ./db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=library
+    ports:
+      - "3306:3306"
+    networks:
+      - library-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  
+
+#------------------------------------------------------------
+volumes:
+  db_data:
+
+#------------------------------------------------------------
+networks:
+  library-network:
+    driver: bridge
