@@ -26,8 +26,8 @@ class BookRequest extends FormRequest
     public function messages()
     {
         return [
-            'cover.image' => 'The cover must be an image file',
-            'cover.mimes' => 'Supported formats: JPEG, PNG, JPG, GIF',
+            'cover.image' => 'Должна быть картинкой',
+            'cover.mimes' => 'форматы: JPEG, PNG, JPG, GIF',
         ];
     }
 }
