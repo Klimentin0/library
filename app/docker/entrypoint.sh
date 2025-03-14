@@ -19,6 +19,7 @@ echo "Running migrations..."
 php artisan migrate --force
 # php artisan config:clear
 # php artisan cache:clear
+php artisan storage:link
 php artisan db:seed --class=BookSeeder
 echo "Building frontend assets..."
 npm install && npm run build
