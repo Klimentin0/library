@@ -3,13 +3,17 @@ services:
 # 
   app:
     build: 
-      context: ./api
+      context: ./app
       dockerfile: Dockerfile
     container_name: laravel-api
     ports:
       - "8000:80"
     volumes:
-      - ./api:/var/www/html
+      - ./app:/var/www/html  
+      - /var/www/html/vendor  
+      - /var/www/html/storage  
+      - /var/www/html/node_modules  
+      - /var/www/html/public/build
     depends_on:
       - db
     environment:
@@ -22,11 +26,7 @@ services:
         aliases:
           - api.local
     entrypoint: /var/www/html/docker/entrypoint.sh
-    # healthcheck:
-    #     test: ["CMD", "curl", "-f", "http://localhost/api/health"]
-    #     interval: 30s
-    #     timeout: 10s
-    #     retries: 3
+    
 
 
 #------------------------------------------------------------

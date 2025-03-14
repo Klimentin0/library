@@ -9,6 +9,11 @@ class Book extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+
     protected $fillable = [
         'title',
         'author',
