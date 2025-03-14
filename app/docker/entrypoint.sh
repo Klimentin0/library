@@ -7,6 +7,10 @@ do
   echo "Waiting for MySQL connection..."
   sleep 5
 done
+mkdir -p storage/app/public/books
+chmod -R 775 storage/app/public/books
+chown -R www-data:www-data storage/app/public/books
+
 chown -R www-data:www-data /var/www/html/storage
 chmod -R 775 /var/www/html/storage
 

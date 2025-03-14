@@ -32,6 +32,9 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN npm install && npm run build
+RUN mkdir -p storage/app/public/books \
+    && chown -R www-data:www-data storage/app/public/books \
+    && chmod -R 775 storage/app/public/books
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
 

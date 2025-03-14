@@ -16,11 +16,22 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
+        $dir = storage_path('app/public/books');
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
         return [
-                'title' => $this->faker->sentence(3),
-                'author' => $this->faker->name,
-                'issued' => $this->faker->date(),
-                'cover' => 'covers/'.$this->faker->image('storage/app/public/books', 400, 300, null, false)
+            'title' => $this->faker->sentence(3),
+            'author' => $this->faker->name,
+            'issued' => $this->faker->date,
+            'cover' => $this->faker->image(
+                dir: storage_path('app/public/books'),
+                width: 400,
+                height: 600,
+                category: 'nature',
+                fullPath: false
+            ),
         ];
     }
 }
