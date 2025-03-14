@@ -9,11 +9,9 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./app:/var/www/html  
-      - /var/www/html/vendor  
-      - /var/www/html/storage  
-      - /var/www/html/node_modules  
-      - /var/www/html/public/build
+      - ./app:/var/www/html
+      - storage_volume:/var/www/html/storage/app/public
+      - node_modules:/var/www/html/node_modules
     depends_on:
       - db
     environment:
