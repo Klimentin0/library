@@ -10,10 +10,18 @@ use Illuminate\Support\Facades\Storage;
 class BookController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::latest()->paginate(10);
-        return view('books.index', compact('books'));
+        $search = $request->input('search');
+
+    $books = Book::when($search, function ($query) use ($search) {
+        return $query->where(function ($q) use ($search) {
+            $q->where('title', 'like', "%$search%")
+              ->orWhere('author', 'like', "%$search%");
+        });
+    })->latest()->paginate(10);
+
+    return view('books.index', compact('books', 'search'));
     }
 
 

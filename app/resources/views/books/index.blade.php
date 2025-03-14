@@ -20,7 +20,29 @@
                 </a>
             </div>
         </div>
+        <div class="mb-6 flex flex-col sm:flex-row justify-between items-start gap-4">
+            <div class="w-full sm:w-1/2">
+                <form method="GET" action="{{ route('books.index') }}" class="flex gap-2">
+                    <input type="text"
+                           name="search"
+                           value="{{ $search }}"
+                           placeholder="Поиск по названию или автору"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
 
+                    <button type="submit"
+                            class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
+                        Найти
+                    </button>
+
+                    @if($search)
+                        <a href="{{ route('books.index') }}"
+                           class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors">
+                            Сброс
+                        </a>
+                    @endif
+                </form>
+            </div>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($books as $book)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
